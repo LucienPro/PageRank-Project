@@ -68,8 +68,8 @@ def transition_model(corpus, page, damping_factor):
     transition_probabilities = {p: nondamping_prob for p in corpus}
     
     # Mise à jour des probabilités pour les pages
-    for linked_page in corpus[page]:
-        transition_probabilities[linked_page] += damping_prob
+    for ensemble_page in corpus[page]:
+        transition_probabilities[ensemble_page] += damping_prob
 
     return transition_probabilities
 
