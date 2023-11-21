@@ -106,10 +106,10 @@ def iterate_pagerank(corpus, damping_factor):
             #Initialisation
             new_pagerank = ( 1 - damping_factor ) / N 
 
-            for nom_page, ensemble_page in corpus.items():
+            for nom_page in corpus:
                 # on check si la page fait parti d'un ensemble pour incrémenter la pagerank avec la formule
-                if page in ensemble_page:
-                    n_link = len(ensemble_page)
+                if page in corpus[nom_page]:
+                    n_link = len(corpus[nom_page])
                     new_pagerank = new_pagerank + damping_factor * pageranks[nom_page] / n_link
             #Maj du nouveau Pagerank
             new_pageranks[page] = new_pagerank
