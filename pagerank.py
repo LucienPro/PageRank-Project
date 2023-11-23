@@ -83,7 +83,37 @@ def sample_pagerank(corpus, damping_factor, n):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    raise NotImplementedError
+    pageRank = {}
+
+    #Initialisation des pages
+    for page in corpus:
+        pageRank[page] = 0
+
+
+    pageAct = list(corpus.keys())[random.randint(0,len(corpus.keys())-1)] # Choix de la première page aléatoire
+
+    i = 0
+    while (i < n):
+        
+        notePage = transition_model(corpus, pageAct, damping_factor) # Note de la page actuelle
+        nbrALea = random.random() # Choix d'un nombre aléatoire entre 0 et 1
+
+        proba = 0
+        #Boucle pour trouver quelle est la page suivante
+        for page, prob in notePage.items():
+            proba += prob
+            if nbrALea < proba:
+                pageSuiv = page
+                break
+
+        pageRank[pageAct] += 1 # On incrémente de 1 la page actuelle car visité 1 fois
+        pageAct = pageSuiv
+        i += 1     
+
+    for page, nbPage in pageRank.items():
+        pageRank[page] = nbPage/n # Pour chaque page on divise le nombre de fois visité par n (nombre totale de visite sur l'ensemble des pages)
+
+    return pageRank
 
 
 def iterate_pagerank(corpus, damping_factor):
